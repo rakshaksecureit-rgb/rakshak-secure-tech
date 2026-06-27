@@ -14,19 +14,15 @@ export default function Footer() {
     <footer className="relative overflow-hidden border-t border-white/10 bg-[#040B17] text-white">
 
       {/* Background Effects */}
-
       <div className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-cyan-500/10 blur-[180px]" />
-
       <div className="absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-[180px]" />
 
       <div className="relative mx-auto max-w-7xl px-6 py-20">
 
         {/* Top Grid */}
-
         <div className="grid gap-14 lg:grid-cols-12">
 
           {/* Company */}
-
           <div className="lg:col-span-4">
 
             <div className="flex items-center gap-4">
@@ -36,15 +32,12 @@ export default function Footer() {
               </div>
 
               <div>
-
                 <h3 className="text-2xl font-bold">
                   RakshakSecure Tech
                 </h3>
-
                 <p className="text-sm text-slate-400">
                   Protection Through Technology
                 </p>
-
               </div>
 
             </div>
@@ -57,36 +50,12 @@ export default function Footer() {
               mission-critical environments.
             </p>
 
-            {/* Trust Badges */}
-
-            <div className="mt-8 flex flex-wrap gap-3">
-
-              {[
-                "AI Powered",
-                "Government Ready",
-                "Enterprise Scale",
-                "24/7 Operations",
-                "PAN India Support",
-              ].map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-2 text-xs font-medium text-cyan-300"
-                >
-                  {item}
-                </span>
-              ))}
-
-            </div>
-
           </div>
 
-          {/* Company */}
-
+          {/* Company Links */}
           <div className="lg:col-span-2">
 
-            <h4 className="mb-6 text-lg font-semibold">
-              Company
-            </h4>
+            <h4 className="mb-6 text-lg font-semibold">Company</h4>
 
             <ul className="space-y-4 text-slate-400">
 
@@ -118,34 +87,38 @@ export default function Footer() {
 
           </div>
 
-          {/* Industries */}
-
+          {/* Legal Links (UPDATED) */}
           <div className="lg:col-span-3">
 
             <h4 className="mb-6 text-lg font-semibold">
-              Industries
+              Legal
             </h4>
 
             <ul className="space-y-4 text-slate-400">
 
-              <li>Defense & Homeland Security</li>
+              <li>
+                <Link href="/privacy-policy" className="transition hover:text-cyan-300">
+                  Privacy Policy
+                </Link>
+              </li>
 
-              <li>Government & Smart Cities</li>
+              <li>
+                <Link href="/terms-and-conditions" className="transition hover:text-cyan-300">
+                  Terms & Conditions
+                </Link>
+              </li>
 
-              <li>Airports & Aviation</li>
-
-              <li>Ports & Logistics</li>
-
-              <li>Railways & Transportation</li>
-
-              <li>Critical Infrastructure</li>
+              <li>
+                <Link href="/security" className="transition hover:text-cyan-300">
+                  Security
+                </Link>
+              </li>
 
             </ul>
 
           </div>
 
           {/* Contact */}
-
           <div className="lg:col-span-3">
 
             <h4 className="mb-6 text-lg font-semibold">
@@ -155,66 +128,39 @@ export default function Footer() {
             <div className="space-y-6">
 
               <div className="flex items-start gap-3">
-
-                <Mail
-                  size={18}
-                  className="mt-1 text-cyan-400"
-                />
-
+                <Mail size={18} className="mt-1 text-cyan-400" />
                 <div>
-
                   <p className="font-medium text-white">
                     info@rakshaksecuretech.com
                   </p>
-
                   <p className="text-sm text-slate-400">
                     Business Enquiries
                   </p>
-
                 </div>
-
               </div>
 
               <div className="flex items-start gap-3">
-
-                <Phone
-                  size={18}
-                  className="mt-1 text-cyan-400"
-                />
-
+                <Phone size={18} className="mt-1 text-cyan-400" />
                 <div>
-
                   <p className="font-medium text-white">
                     +91 XXXXX XXXXX
                   </p>
-
                   <p className="text-sm text-slate-400">
                     Consultation Support
                   </p>
-
                 </div>
-
               </div>
 
               <div className="flex items-start gap-3">
-
-                <MapPin
-                  size={18}
-                  className="mt-1 text-cyan-400"
-                />
-
+                <MapPin size={18} className="mt-1 text-cyan-400" />
                 <div>
-
                   <p className="font-medium text-white">
                     Sector 14
                   </p>
-
                   <p className="text-sm text-slate-400">
                     Gurgaon, Haryana, India
                   </p>
-
                 </div>
-
               </div>
 
             </div>
@@ -224,7 +170,6 @@ export default function Footer() {
               className="mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-3 font-semibold text-black transition-all duration-300 hover:scale-105"
             >
               Schedule Consultation
-
               <ArrowUpRight size={18} />
             </Link>
 
@@ -232,66 +177,18 @@ export default function Footer() {
 
         </div>
 
-        {/* Premium Strip */}
-
-        <div className="my-14 rounded-3xl border border-cyan-500/10 bg-gradient-to-r from-cyan-500/5 via-blue-500/5 to-cyan-500/5 px-8 py-6 text-center">
-
-          <p className="text-sm uppercase tracking-[0.35em] text-cyan-400">
-            Artificial Intelligence • Surveillance • Command Systems
-          </p>
-
-          <h3 className="mt-4 text-2xl font-bold md:text-3xl">
-            Securing Critical Infrastructure Through
-            <span className="block text-cyan-400">
-              Artificial Intelligence
-            </span>
-          </h3>
-
-        </div>
-
-        {/* Divider */}
-
-        <div className="h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent" />
-
         {/* Bottom */}
+        <div className="mt-14 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent" />
 
         <div className="flex flex-col gap-6 py-8 md:flex-row md:items-center md:justify-between">
 
           <div>
-
             <p className="text-sm text-slate-500">
               © 2026 RakshakSecure Tech Pvt. Ltd. All Rights Reserved.
             </p>
-
             <p className="mt-2 text-xs text-slate-600">
               Developed & Maintained by D9Lab Technologies India
             </p>
-
-          </div>
-
-          <div className="flex flex-wrap gap-6 text-sm text-slate-500">
-
-            <Link
-              href="/privacy-policy"
-              className="hover:text-cyan-300"
-            >
-              Privacy Policy
-            </Link>
-
-            <Link
-              href="/terms"
-              className="hover:text-cyan-300"
-            >
-              Terms of Service
-            </Link>
-
-            <Link
-              href="/security"
-              className="hover:text-cyan-300"
-            >
-              Security
-            </Link>
-
           </div>
 
         </div>

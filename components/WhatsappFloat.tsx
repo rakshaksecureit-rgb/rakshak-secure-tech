@@ -1,61 +1,50 @@
 "use client";
 
-import { MessageCircle, ShieldCheck } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 
 export default function WhatsappFloat() {
-  const phone = "919602105393"; // Replace with your WhatsApp number
+  const phone = "919602105393";
 
   return (
-    <div className="fixed bottom-5 right-5 z-[9999] flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-4 z-[9999] flex flex-col items-end gap-2">
 
-      {/* Online Card */}
-      <div className="hidden sm:flex items-center gap-3 rounded-2xl border border-white/10 bg-[#071225]/90 px-4 py-3 backdrop-blur-xl shadow-[0_0_40px_rgba(0,91,172,0.25)]">
-        <div className="relative">
-          <div className="h-3 w-3 rounded-full bg-green-400" />
-          <div className="absolute inset-0 animate-ping rounded-full bg-green-400" />
+      {/* AI FLOATING BUBBLE */}
+      <div className="flex items-center gap-2 rounded-full border border-white/10 bg-[#071225]/70 px-3 py-2 backdrop-blur-xl">
+
+        {/* animated thinking dots */}
+        <div className="flex items-center gap-1">
+          <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-green-400 [animation-delay:-0.2s]" />
+          <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-green-400 [animation-delay:-0.1s]" />
+          <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-green-400" />
         </div>
 
-        <div>
-          <p className="text-xs font-semibold text-white">
-            Security Consultant Online
-          </p>
+        <p className="text-[11px] text-slate-300">
+          AI Support Online
+        </p>
 
-          <p className="text-[11px] text-slate-400">
-            Typically replies within minutes
-          </p>
-        </div>
       </div>
 
-      {/* WhatsApp Button */}
+      {/* WHATSAPP CORE NODE */}
       <a
-        href="https://wa.me/919602105393"
+        href={`https://wa.me/${phone}`}
         target="_blank"
         rel="noopener noreferrer"
         className="group relative"
       >
-        {/* Pulse Ring */}
-        <span className="absolute inset-0 animate-ping rounded-full bg-green-500/30" />
 
-        {/* Glow */}
-        <div className="absolute inset-0 rounded-full bg-green-500 blur-xl opacity-50" />
+        {/* soft energy waves */}
+        <span className="absolute inset-0 rounded-full bg-green-500/20 blur-md animate-pulse" />
 
-        {/* Main Button */}
-        <div className="relative flex items-center gap-3 rounded-full border border-green-400/20 bg-gradient-to-r from-green-500 to-emerald-600 px-5 py-4 text-white shadow-[0_0_40px_rgba(34,197,94,0.45)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_60px_rgba(34,197,94,0.75)]">
+        {/* ring pulse */}
+        <span className="absolute inset-0 rounded-full border border-green-400/30 animate-ping" />
 
-          <ShieldCheck size={18} />
+        {/* core button (small node) */}
+        <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-green-500 shadow-[0_0_25px_rgba(34,197,94,0.4)] transition active:scale-90">
 
-          <div className="hidden sm:block overflow-hidden">
-            <p className="text-sm font-semibold leading-none">
-              Security Consultation
-            </p>
+          <MessageCircle size={16} className="text-white" />
 
-            <p className="mt-1 text-[11px] text-green-100">
-              Chat on WhatsApp
-            </p>
-          </div>
-
-          <MessageCircle size={22} />
         </div>
+
       </a>
     </div>
   );

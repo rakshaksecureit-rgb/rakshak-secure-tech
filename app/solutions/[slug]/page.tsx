@@ -1,280 +1,185 @@
 "use client";
 
-import { use } from "react";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
+import { solutions } from "@/lib/solutions";
+import { visualRegistry } from "@/lib/visualRegistry";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
-import { solutions } from "@/lib/solutions";
+export default function SolutionSlugPage() {
+  const params = useParams();
+  const slug = params?.slug as string;
 
-import FaceVisual from "@/components/solutions/FaceVisual";
-import VehicleVisual from "@/components/solutions/VehicleVisual";
-import BorderVisual from "@/components/solutions/BorderVisual";
-import CargoVisual from "@/components/solutions/CargoVisual";
-import SurveillanceVisual from "@/components/solutions/SurveillanceVisual";
-import CommandCenterVisual from "@/components/solutions/CommandCenterVisual";
+  const solution = solutions.find((s) => s.slug === slug);
+  if (!solution) return notFound();
 
-export default function SolutionDetail({
-params,
-}: {
-params: Promise<{ slug: string }>;
-}) {
-const { slug } = use(params);
+  const Visual = visualRegistry[solution.slug]?.component;
 
-const data = solutions.find((s) => s.slug === slug);
+  return (
+    <main className="relative min-h-screen overflow-hidden bg-[#071226] text-white">
 
-if (!data) return notFound();
+      {/* ENERGY BACKGROUND */}
+      <div className="absolute inset-0">
+        <div className="absolute left-[-15%] top-[-15%] h-[700px] w-[700px] rounded-full bg-cyan-500/10 blur-[200px] animate-pulse" />
+        <div className="absolute right-[-15%] bottom-[-15%] h-[700px] w-[700px] rounded-full bg-blue-500/10 blur-[200px] animate-pulse" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:70px_70px]" />
+      </div>
 
-const Icon = data.icon;
+      {/* BACK BUTTON */}
+      <div className="relative z-10 px-6 pt-6">
+        <Link
+          href="/solutions"
+          className="inline-flex items-center gap-2 text-sm text-cyan-300 hover:text-cyan-200"
+        >
+          <ArrowLeft size={16} />
+          Back
+        </Link>
+      </div>
 
-const visualMap: Record<string, React.ReactNode> = {
-"facial-recognition": <FaceVisual />,
-"vehicle-intelligence": <VehicleVisual />,
-"border-intelligence": <BorderVisual />,
-"cargo-security": <CargoVisual />,
-"smart-surveillance": <SurveillanceVisual />,
-"command-center": <CommandCenterVisual />,
-};
-
-return ( <main className="relative min-h-screen overflow-hidden bg-[#071226] text-white">
-
-
-  {/* Background */}
-  <div className="absolute inset-0">
-    <div className="absolute left-[-10%] top-[-10%] h-[700px] w-[700px] rounded-full bg-cyan-500/10 blur-[180px]" />
-    <div className="absolute right-[-10%] bottom-[-10%] h-[700px] w-[700px] rounded-full bg-blue-500/10 blur-[180px]" />
-  </div>
-
-  <div className="relative mx-auto max-w-7xl px-6 py-20">
-
-    {/* Back */}
-    <Link
-      href="/solutions"
-      className="inline-flex items-center gap-2 text-slate-400 transition hover:text-white"
-    >
-      <ArrowLeft size={16} />
-      Back to Solutions
-    </Link>
-
-    {/* Hero */}
-    <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:items-center">
-
-      <div>
-
-        <div className="flex items-center gap-4">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-300">
-            <Icon size={28} />
+      {/* HERO */}
+      <section className="relative z-10 px-6 pt-14 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl border border-cyan-500/20 bg-cyan-500/10">
+            <solution.icon size={34} className="text-cyan-300" />
           </div>
 
-          <div>
-            <p className="text-xs uppercase tracking-[4px] text-cyan-400">
-              Security Solution
+          <h1 className="mt-6 text-4xl md:text-6xl font-bold">
+            {solution.heroTitle}
+          </h1>
+
+          <p className="mx-auto mt-4 max-w-3xl text-slate-400">
+            {solution.heroSubtitle}
+          </p>
+
+          <div className="mt-6 flex flex-wrap justify-center gap-2">
+            {solution.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* 🔥 LIVE SYSTEM VISUAL (MAIN WOW BLOCK) */}
+      <section className="relative z-10 mt-14 flex justify-center px-6">
+        <div className="w-full max-w-6xl h-[520px] rounded-3xl border border-white/10 bg-white/5 overflow-hidden">
+          {Visual && <Visual />}
+        </div>
+      </section>
+
+      {/* PIPELINE (ANIMATED FLOW) */}
+      <section className="relative z-10 mt-16 px-6">
+        <h2 className="text-center text-xl font-bold text-cyan-300">
+          LIVE PROCESS FLOW
+        </h2>
+
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          {solution.pipeline.map((step, i) => (
+            <motion.div
+              key={step}
+              animate={{ opacity: [0.4, 1, 0.4] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: i * 0.25,
+              }}
+              className="flex items-center gap-3"
+            >
+              <div className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-2 text-sm text-cyan-200">
+                {step}
+              </div>
+
+              {i !== solution.pipeline.length - 1 && (
+                <div className="h-[2px] w-10 bg-cyan-500/30" />
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* STATS */}
+      <section className="relative z-10 mt-20 grid grid-cols-3 gap-4 px-6 text-center">
+        {Object.entries(solution.stats).map(([key, value]) => (
+          <motion.div
+            key={key}
+            whileHover={{ scale: 1.05 }}
+            className="rounded-2xl border border-white/10 bg-white/5 p-5"
+          >
+            <p className="text-xs uppercase text-slate-400">{key}</p>
+            <p className="mt-2 text-2xl font-bold text-cyan-300">
+              {value}
             </p>
+          </motion.div>
+        ))}
+      </section>
 
-            <h1 className="text-4xl font-bold md:text-6xl">
-              {data.heroTitle}
-            </h1>
-          </div>
+      {/* FEATURES */}
+      <section className="relative z-10 mt-20 px-6">
+        <h2 className="text-center text-2xl font-bold">
+          Core Intelligence Modules
+        </h2>
+
+        <div className="mx-auto mt-10 grid max-w-6xl gap-6 md:grid-cols-2">
+          {solution.features.map((f) => (
+            <motion.div
+              key={f}
+              whileHover={{ scale: 1.03 }}
+              className="rounded-2xl border border-white/10 bg-white/5 p-6"
+            >
+              <div className="h-2 w-2 rounded-full bg-cyan-400" />
+              <p className="mt-4 text-slate-300">{f}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ARCHITECTURE */}
+      <section className="relative z-10 mt-20 px-6 pb-24">
+        <h2 className="text-center text-2xl font-bold text-cyan-300">
+          SYSTEM ARCHITECTURE
+        </h2>
+
+        <div className="mx-auto mt-10 max-w-4xl space-y-4">
+          {solution.layers.map((layer) => (
+            <div
+              key={layer}
+              className="rounded-xl border border-white/10 bg-white/5 p-4 text-center text-slate-300"
+            >
+              {layer}
+            </div>
+          ))}
         </div>
 
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-400">
-          {data.heroSubtitle}
-        </p>
-
-        {/* Tags */}
-        <div className="mt-8 flex flex-wrap gap-3">
-          {data.tags.map((tag) => (
+        {/* DEPLOYMENTS */}
+        <div className="mx-auto mt-16 flex max-w-5xl flex-wrap justify-center gap-3">
+          {solution.deployments.map((d) => (
             <span
-              key={tag}
-              className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-slate-300"
+              key={d}
+              className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300"
             >
-              {tag}
+              {d}
             </span>
           ))}
         </div>
 
-        {/* Stats */}
-        <div className="mt-10 grid grid-cols-3 gap-4">
-
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
-            <h3 className="text-2xl font-bold text-cyan-400">
-              {data.stats.accuracy}
-            </h3>
-            <p className="text-xs text-slate-400">
-              Accuracy
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
-            <h3 className="text-2xl font-bold text-cyan-400">
-              {data.stats.response}
-            </h3>
-            <p className="text-xs text-slate-400">
-              Response
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
-            <h3 className="text-2xl font-bold text-cyan-400">
-              {data.stats.uptime}
-            </h3>
-            <p className="text-xs text-slate-400">
-              Uptime
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-
-      {/* Visual */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        {visualMap[data.slug]}
-      </motion.div>
-
-    </div>
-
-    {/* Pipeline */}
-    <div className="mt-20">
-
-      <h2 className="mb-6 text-2xl font-bold">
-        Intelligence Pipeline
-      </h2>
-
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-        {data.pipeline.map((step) => (
-          <div
-            key={step}
-            className="rounded-2xl border border-white/10 bg-white/5 p-5 text-center text-sm font-semibold text-cyan-300"
-          >
-            {step}
-          </div>
-        ))}
-      </div>
-
-    </div>
-
-    {/* Features + Layers */}
-    <div className="mt-20 grid gap-8 lg:grid-cols-2">
-
-      <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-
-        <h2 className="text-xl font-bold text-cyan-300">
-          Core Capabilities
-        </h2>
-
-        <div className="mt-6 space-y-4">
-          {data.features.map((feature) => (
-            <div
-              key={feature}
-              className="flex items-start gap-3"
-            >
-              <div className="mt-2 h-2 w-2 rounded-full bg-cyan-400" />
-              <p className="text-slate-300">
-                {feature}
-              </p>
+        {/* BENEFITS */}
+        <div className="mx-auto mt-16 grid max-w-5xl gap-4 md:grid-cols-2">
+          {solution.benefits.map((b) => (
+            <div className="rounded-xl border border-cyan-500/20 bg-cyan-500/5 p-5 text-cyan-200">
+              {b}
             </div>
           ))}
         </div>
+      </section>
 
-      </div>
-
-      <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-
-        <h2 className="text-xl font-bold text-cyan-300">
-          AI Processing Layers
-        </h2>
-
-        <div className="mt-6 space-y-4">
-          {data.layers.map((layer) => (
-            <div
-              key={layer}
-              className="flex items-start gap-3"
-            >
-              <div className="mt-2 h-2 w-2 rounded-full bg-cyan-400" />
-              <p className="text-slate-300">
-                {layer}
-              </p>
-            </div>
-          ))}
-        </div>
-
-      </div>
-
-    </div>
-
-    {/* Deployments */}
-    <div className="mt-20">
-
-      <h2 className="mb-6 text-2xl font-bold">
-        Deployment Scenarios
-      </h2>
-
-      <div className="grid gap-4 md:grid-cols-3">
-
-        {data.deployments.map((item) => (
-          <div
-            key={item}
-            className="rounded-2xl border border-white/10 bg-white/5 p-5"
-          >
-            {item}
-          </div>
-        ))}
-
-      </div>
-
-    </div>
-
-    {/* Benefits */}
-    <div className="mt-20">
-
-      <h2 className="mb-6 text-2xl font-bold">
-        Operational Benefits
-      </h2>
-
-      <div className="grid gap-4 md:grid-cols-2">
-
-        {data.benefits.map((benefit) => (
-          <div
-            key={benefit}
-            className="rounded-2xl border border-cyan-500/10 bg-cyan-500/5 p-5"
-          >
-            {benefit}
-          </div>
-        ))}
-
-      </div>
-
-    </div>
-
-    {/* CTA */}
-    <div className="mt-24 rounded-3xl border border-cyan-500/10 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 p-10 text-center">
-
-      <h2 className="text-3xl font-bold">
-        Ready to Deploy {data.title}?
-      </h2>
-
-      <p className="mx-auto mt-4 max-w-2xl text-slate-400">
-        Integrate AI-powered intelligence into your security operations
-        and build scalable, mission-critical infrastructure.
-      </p>
-
-      <Link
-        href="/contact"
-        className="mt-8 inline-flex rounded-xl bg-cyan-500 px-6 py-3 font-semibold text-black transition hover:bg-cyan-400"
-      >
-        Contact Our Team
-      </Link>
-
-    </div>
-
-  </div>
-</main>
-
-
-);
+    </main>
+  );
 }

@@ -5,141 +5,118 @@ import { Eye } from "lucide-react";
 
 export default function SurveillanceVisual() {
   return (
-    <div className="relative h-[520px] overflow-hidden rounded-3xl border border-white/10 bg-black/40">
+    <div className="relative h-[380px] md:h-[520px] overflow-hidden rounded-2xl md:rounded-3xl border border-white/10 bg-black/40">
 
-      {/* Grid */}
+      {/* GRID */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,255,255,0.04)_1px,transparent_1px)] bg-[size:40px_40px]" />
 
-      {/* Camera Tiles */}
-      <div className="absolute inset-6 grid grid-cols-3 gap-4">
+      {/* CAMERA GRID (reduced on mobile) */}
+      <div className="absolute inset-4 md:inset-6 grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
 
         {[...Array(6)].map((_, i) => (
           <div
             key={i}
-            className="relative overflow-hidden rounded-xl border border-cyan-500/10 bg-black/60"
+            className="relative overflow-hidden rounded-lg md:rounded-xl border border-cyan-500/10 bg-black/60"
           >
 
-            {/* Camera Noise */}
+            {/* noise layer */}
             <motion.div
-              animate={{
-                opacity: [0.15, 0.3, 0.15],
+              animate={{ opacity: [0.12, 0.25, 0.12] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: i * 0.15,
               }}
+              className="absolute inset-0 bg-cyan-500/5"
+            />
+
+            {/* detection box (smaller on mobile) */}
+            <motion.div
+              animate={{ scale: [1, 1.05, 1], opacity: [0.5, 1, 0.5] }}
               transition={{
                 duration: 2,
                 repeat: Infinity,
                 delay: i * 0.2,
               }}
-              className="absolute inset-0 bg-cyan-500/5"
+              className="absolute left-[30%] top-[30%] h-6 w-6 md:h-10 md:w-10 border border-cyan-400"
             />
 
-            {/* Detection Box */}
+            {/* scan line (slower + smoother) */}
             <motion.div
-              animate={{
-                scale: [1, 1.05, 1],
-                opacity: [0.5, 1, 0.5],
-              }}
+              animate={{ y: ["0%", "400%"] }}
               transition={{
-                duration: 2,
-                repeat: Infinity,
-                delay: i * 0.3,
-              }}
-              className="absolute left-[35%] top-[30%] h-12 w-10 border-2 border-cyan-400"
-            />
-
-            {/* Scan Line */}
-            <motion.div
-              animate={{
-                y: ["0%", "500%"],
-              }}
-              transition={{
-                duration: 2.5,
+                duration: 3.5,
                 repeat: Infinity,
                 ease: "linear",
               }}
               className="absolute left-0 right-0 h-[2px] bg-cyan-400/60"
             />
-
           </div>
         ))}
       </div>
 
-      {/* Center AI Core */}
+      {/* CENTER CORE */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
 
         <motion.div
-          animate={{
-            rotate: 360,
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          className="flex h-28 w-28 items-center justify-center rounded-full border border-cyan-500/20"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="flex h-20 w-20 md:h-28 md:w-28 items-center justify-center rounded-full border border-cyan-500/20"
         >
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-700 shadow-[0_0_90px_cyan]">
-            <Eye size={28} />
+          <div className="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-700 shadow-[0_0_80px_cyan]">
+            <Eye size={24} />
           </div>
         </motion.div>
-
       </div>
 
-      {/* AI Nodes */}
-      {[...Array(12)].map((_, i) => (
+      {/* AI NODES (reduced density on mobile) */}
+      {[...Array(8)].map((_, i) => (
         <motion.div
           key={i}
-          animate={{
-            scale: [1, 1.8, 1],
-            opacity: [0.2, 1, 0.2],
-          }}
+          animate={{ scale: [1, 1.6, 1], opacity: [0.2, 1, 0.2] }}
           transition={{
             duration: 2,
             repeat: Infinity,
-            delay: i * 0.15,
+            delay: i * 0.2,
           }}
-          className="absolute h-2 w-2 rounded-full bg-cyan-400"
+          className="absolute h-1.5 w-1.5 md:h-2 md:w-2 rounded-full bg-cyan-400"
           style={{
-            left: `${10 + (i % 6) * 14}%`,
-            top: `${15 + Math.floor(i / 6) * 60}%`,
+            left: `${15 + (i % 4) * 20}%`,
+            top: `${20 + Math.floor(i / 4) * 55}%`,
           }}
         />
       ))}
 
-      {/* Alert Markers */}
-      {[1, 4].map((i) => (
+      {/* ALERTS (hidden clutter control on mobile) */}
+      {[
+        { top: "18%", right: "14%" },
+        { top: "68%", right: "20%" },
+      ].map((pos, i) => (
         <motion.div
           key={i}
-          animate={{
-            opacity: [0.4, 1, 0.4],
-          }}
-          transition={{
-            duration: 1,
-            repeat: Infinity,
-          }}
-          className="absolute rounded-lg border border-red-500 bg-red-500/10 px-2 py-1 text-[10px] text-red-400"
-          style={{
-            top: i === 1 ? "18%" : "68%",
-            right: i === 1 ? "14%" : "24%",
-          }}
+          animate={{ opacity: [0.4, 1, 0.4] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="hidden md:block absolute rounded-lg border border-red-500 bg-red-500/10 px-2 py-1 text-[10px] text-red-400"
+          style={pos}
         >
           ALERT
         </motion.div>
       ))}
 
-      {/* HUD */}
-      <div className="absolute left-6 top-6 rounded-xl border border-cyan-500/20 bg-black/60 p-3 text-xs text-cyan-300">
+      {/* HUD (clean mobile behavior) */}
+      <div className="absolute left-4 top-4 md:left-6 md:top-6 rounded-lg md:rounded-xl border border-cyan-500/20 bg-black/60 p-2 md:p-3 text-[10px] md:text-xs text-cyan-300">
         VIDEO ANALYTICS ACTIVE
       </div>
 
-      <div className="absolute right-6 top-6 rounded-xl border border-cyan-500/20 bg-black/60 p-3 text-xs text-cyan-300">
+      <div className="absolute right-4 top-4 md:right-6 md:top-6 rounded-lg md:rounded-xl border border-cyan-500/20 bg-black/60 p-2 md:p-3 text-[10px] md:text-xs text-cyan-300">
         48 CAMERAS ONLINE
       </div>
 
-      <div className="absolute left-6 bottom-6 rounded-xl border border-cyan-500/20 bg-black/60 p-3 text-xs text-cyan-300">
+      <div className="hidden md:block absolute left-6 bottom-6 rounded-xl border border-cyan-500/20 bg-black/60 p-3 text-xs text-cyan-300">
         BEHAVIOR AI RUNNING
       </div>
 
-      <div className="absolute right-6 bottom-6 rounded-xl border border-cyan-500/20 bg-black/60 p-3 text-xs text-cyan-300">
+      <div className="hidden md:block absolute right-6 bottom-6 rounded-xl border border-cyan-500/20 bg-black/60 p-3 text-xs text-cyan-300">
         LIVE THREAT DETECTION
       </div>
 

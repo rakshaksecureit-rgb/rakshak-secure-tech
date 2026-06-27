@@ -9,32 +9,50 @@ import IndustriesCTA from "@/components/industries/IndustriesCTA";
 
 export default function IndustriesPage() {
   return (
-    <main className="relative overflow-hidden bg-[#071226] text-white">
+    <main className="relative overflow-hidden bg-[#071226] text-white w-full">
 
-      <div className="pointer-events-none fixed inset-0">
-
-        <div className="absolute left-[-10%] top-[-10%] h-[700px] w-[700px] rounded-full bg-cyan-500/5 blur-[180px]" />
-
-        <div className="absolute right-[-10%] bottom-[-10%] h-[700px] w-[700px] rounded-full bg-blue-500/5 blur-[180px]" />
-
+      {/* Background Effects (mobile optimized blur scale) */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div className="absolute left-[-30%] top-[-20%] h-[400px] w-[400px] sm:h-[700px] sm:w-[700px] rounded-full bg-cyan-500/5 blur-[120px] sm:blur-[180px]" />
+        <div className="absolute right-[-30%] bottom-[-20%] h-[400px] w-[400px] sm:h-[700px] sm:w-[700px] rounded-full bg-blue-500/5 blur-[120px] sm:blur-[180px]" />
       </div>
 
-      <IndustriesHero />
+      {/* Content Wrapper (mobile spacing control) */}
+      <div className="relative z-10 flex flex-col w-full">
 
-      <IndustriesOverview />
+        <section className="w-full">
+          <IndustriesHero />
+        </section>
 
-      <IndustryShowcase />
+        <section className="w-full px-4 sm:px-6 lg:px-0">
+          <IndustriesOverview />
+        </section>
 
-      <IndustryGrid />
+        <section className="w-full px-4 sm:px-6 lg:px-0">
+          <IndustryShowcase />
+        </section>
 
-      <DeploymentModels />
+        <section className="w-full px-4 sm:px-6 lg:px-0">
+          <IndustryGrid />
+        </section>
 
-      <IndustriesMetrics />
+        <section className="w-full px-4 sm:px-6 lg:px-0">
+          <DeploymentModels />
+        </section>
 
-      <WhyIndustriesChooseRakshak />
+        <section className="w-full px-4 sm:px-6 lg:px-0">
+          <IndustriesMetrics />
+        </section>
 
-      <IndustriesCTA />
+        <section className="w-full px-4 sm:px-6 lg:px-0">
+          <WhyIndustriesChooseRakshak />
+        </section>
 
+        <section className="w-full">
+          <IndustriesCTA />
+        </section>
+
+      </div>
     </main>
   );
 }

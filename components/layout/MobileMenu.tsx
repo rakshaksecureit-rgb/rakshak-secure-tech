@@ -1,229 +1,183 @@
 "use client";
 
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import {
-Shield,
-Mail,
-Phone,
-MapPin,
-ArrowUpRight,
+  Shield,
+  Home,
+  Info,
+  Layers,
+  Building2,
+  Cpu,
+  Phone,
+  X,
+  ArrowUpRight,
 } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 type MobileMenuProps = {
-open: boolean;
-onClose: () => void;
+  open: boolean;
+  onClose: () => void;
 };
 
-export default function MobileMenu({
-open,
-onClose,
-}: MobileMenuProps) {
-return (
-<>
-{/* Overlay */}
+const navItems = [
+  { name: "Home", href: "/", icon: Home },
+  { name: "About", href: "/about", icon: Info },
+  { name: "Solutions", href: "/solutions", icon: Layers },
+  { name: "Industries", href: "/industries", icon: Building2 },
+  { name: "Tech", href: "/technology", icon: Cpu },
+  { name: "Contact", href: "/contact", icon: Phone },
+];
 
+export default function MobileMenu({ open, onClose }: MobileMenuProps) {
+  const pathname = usePathname();
 
-  <div
-    className={`fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm transition-all duration-300 ${
-      open
-        ? "visible opacity-100"
-        : "invisible opacity-0"
-    }`}
-    onClick={onClose}
-  />
+  return (
+    <AnimatePresence>
+      {open && (
+        <>
 
-  {/* Drawer */}
-
-  <div
-    className={`fixed right-0 top-0 z-[70] h-full w-[88%] max-w-[380px] overflow-y-auto border-l border-cyan-500/20 bg-[#050B18] transition-transform duration-500 ${
-      open
-        ? "translate-x-0"
-        : "translate-x-full"
-    }`}
-  >
-    {/* Header */}
-
-    <div className="border-b border-white/10 p-6">
-
-      <div className="flex items-center justify-between">
-
-        <div className="flex items-center gap-3">
-
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 shadow-[0_0_30px_rgba(0,255,255,0.25)]">
-            <Shield size={22} />
-          </div>
-
-          <div>
-
-            <h3 className="font-bold text-white">
-              RakshakSecure Tech
-            </h3>
-
-            <p className="text-xs tracking-wider text-cyan-300">
-              AI SECURITY INTELLIGENCE
-            </p>
-
-          </div>
-
-        </div>
-
-        <button
-          onClick={onClose}
-          className="text-3xl text-slate-400 transition hover:text-white"
-        >
-          ×
-        </button>
-
-      </div>
-
-    </div>
-
-    {/* Trust Badges */}
-
-    <div className="flex flex-wrap gap-2 border-b border-white/10 p-6">
-
-      {[
-        "AI Powered",
-        "24/7 Operations",
-        "PAN India",
-      ].map((item) => (
-        <span
-          key={item}
-          className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3 py-1 text-[11px] font-medium text-cyan-300"
-        >
-          {item}
-        </span>
-      ))}
-
-    </div>
-
-    {/* Navigation */}
-
-    <div className="p-6">
-
-      <nav className="flex flex-col gap-3">
-
-        {[
-          { name: "Home", href: "/" },
-          { name: "About", href: "/about" },
-          { name: "Solutions", href: "/solutions" },
-          { name: "Industries", href: "/industries" },
-          { name: "Technology", href: "/technology" },
-          { name: "Contact", href: "/contact" },
-        ].map((item) => (
-          <Link
-            key={item.name}
-            href={item.href}
+          {/* BACKDROP */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             onClick={onClose}
-            className="group flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-5 py-4 transition-all duration-300 hover:border-cyan-500/30 hover:bg-cyan-500/5"
+            className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-xl"
+          />
+
+          {/* FULL SCREEN PANEL */}
+          <motion.div
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", stiffness: 260, damping: 25 }}
+            className="fixed inset-0 z-[70] flex flex-col bg-[#050B18]"
           >
-            <span className="font-medium text-white">
-              {item.name}
-            </span>
 
-            <ArrowUpRight
-              size={18}
-              className="text-cyan-300 transition group-hover:translate-x-1 group-hover:-translate-y-1"
-            />
-          </Link>
-        ))}
+            {/* TOP BAR */}
+            <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
 
-      </nav>
+              <div className="flex items-center gap-3">
 
-      {/* CTA */}
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 shadow-[0_0_25px_rgba(0,255,255,0.25)]">
+                  <Shield size={18} />
+                </div>
 
-      <Link
-        href="/contact"
-        onClick={onClose}
-        className="mt-8 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-4 font-semibold text-black shadow-[0_0_30px_rgba(0,255,255,0.25)] transition-all duration-300 hover:scale-[1.02]"
-      >
-        Request Consultation
+                <div>
+                  <h3 className="text-sm font-bold text-white">
+                    RakshakSecure
+                  </h3>
+                  <p className="text-[10px] tracking-[0.2em] text-cyan-300">
+                    COMMAND INTERFACE
+                  </p>
+                </div>
 
-        <ArrowUpRight size={18} />
-      </Link>
+              </div>
 
-    </div>
+              <button
+                onClick={onClose}
+                className="rounded-xl border border-white/10 bg-white/5 p-2 text-white active:scale-90 transition"
+              >
+                <X size={18} />
+              </button>
 
-    {/* Contact Block */}
+            </div>
 
-    <div className="border-t border-white/10 p-6">
+            {/* NAV GRID */}
+            <div className="flex-1 px-5 py-6 overflow-y-auto">
 
-      <h4 className="mb-5 text-sm font-semibold tracking-[0.2em] text-cyan-400">
-        CONTACT
-      </h4>
+              <div className="grid grid-cols-2 gap-4">
 
-      <div className="space-y-5">
+                {navItems.map((item, i) => {
+                  const Icon = item.icon;
+                  const isActive = pathname === item.href;
 
-        <div className="flex items-start gap-3">
+                  return (
+                    <Link key={item.name} href={item.href} onClick={onClose}>
+                      <motion.div
+                        whileTap={{ scale: 0.95 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: i * 0.05 }}
+                        className={`relative flex flex-col items-center justify-center rounded-2xl border p-5 text-center transition-all duration-300 ${
+                          isActive
+                            ? "border-cyan-400 bg-cyan-500/10 shadow-[0_0_25px_rgba(0,255,255,0.15)]"
+                            : "border-white/10 bg-white/5 hover:border-cyan-500/30 hover:bg-cyan-500/5"
+                        }`}
+                      >
 
-          <Mail
-            size={18}
-            className="mt-1 text-cyan-400"
-          />
+                        {/* ACTIVE DOT */}
+                        {isActive && (
+                          <span className="absolute right-3 top-3 h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
+                        )}
 
-          <div>
+                        <Icon
+                          size={22}
+                          className={`transition ${
+                            isActive ? "text-cyan-300" : "text-slate-300"
+                          }`}
+                        />
 
-            <p className="text-sm text-white">
-              info@rakshaksecuretech.com
-            </p>
+                        <span className="mt-3 text-sm font-medium text-white">
+                          {item.name}
+                        </span>
 
-            <p className="text-xs text-slate-500">
-              Business Enquiries
-            </p>
+                        <ArrowUpRight
+                          size={14}
+                          className="absolute right-3 top-3 text-cyan-300 opacity-0 transition group-hover:opacity-100"
+                        />
 
-          </div>
+                      </motion.div>
+                    </Link>
+                  );
+                })}
 
-        </div>
+              </div>
+            </div>
 
-        <div className="flex items-start gap-3">
+            {/* 🔥 DOCK BAR (NEXT-LEVEL FEATURE) */}
+            <div className="border-t border-white/10 bg-black/30 backdrop-blur-xl px-4 py-3">
 
-          <Phone
-            size={18}
-            className="mt-1 text-cyan-400"
-          />
+              <div className="flex items-center justify-between">
 
-          <div>
+                <Link
+                  href="/"
+                  onClick={onClose}
+                  className="flex flex-col items-center text-xs text-slate-400"
+                >
+                  <Home size={18} />
+                  Home
+                </Link>
 
-            <p className="text-sm text-white">
-              +91 XXXXX XXXXX
-            </p>
+                <Link
+                  href="/contact"
+                  onClick={onClose}
+                  className="relative flex flex-col items-center"
+                >
+                  <div className="absolute -top-6 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 shadow-[0_0_30px_rgba(0,255,255,0.35)] animate-pulse">
+                    <ArrowUpRight size={20} className="text-black" />
+                  </div>
+                  <span className="mt-6 text-xs text-cyan-300">
+                    Action
+                  </span>
+                </Link>
 
-            <p className="text-xs text-slate-500">
-              Consultation Support
-            </p>
+                <button
+                  onClick={onClose}
+                  className="flex flex-col items-center text-xs text-slate-400"
+                >
+                  <X size={18} />
+                  Close
+                </button>
 
-          </div>
+              </div>
 
-        </div>
+            </div>
 
-        <div className="flex items-start gap-3">
-
-          <MapPin
-            size={18}
-            className="mt-1 text-cyan-400"
-          />
-
-          <div>
-
-            <p className="text-sm text-white">
-              Sector 14
-            </p>
-
-            <p className="text-xs text-slate-500">
-              Gurgaon, Haryana, India
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-</>
-
-
-);
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
 }
