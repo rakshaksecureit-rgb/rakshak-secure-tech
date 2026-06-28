@@ -190,6 +190,17 @@ export default function Footer() {
               Developed & Maintained by D9Lab Technologies India
             </p>
           </div>
+          <Link
+  href="/login"
+  className="group inline-flex items-center gap-2 rounded-xl border border-cyan-500/30 bg-white/5 px-5 py-3 text-sm font-semibold text-cyan-300 backdrop-blur transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-500/10 hover:text-white hover:shadow-[0_0_25px_rgba(34,211,238,0.25)]"
+>
+  <Shield size={18} className="transition-transform duration-300 group-hover:rotate-6" />
+  Member Login
+  <ArrowUpRight
+    size={16}
+    className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+  />
+</Link>
 
         </div>
 

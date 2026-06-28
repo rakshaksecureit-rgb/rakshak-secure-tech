@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import WhatsappFloat from "@/components/WhatsappFloat";
+import AppShell from "@/components/layout/AppShell";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -60,9 +58,7 @@ export const metadata: Metadata = {
   ],
 
   creator: "Rakshak SecureTech",
-
   publisher: "Rakshak SecureTech",
-
   category: "Technology",
 
   alternates: {
@@ -72,7 +68,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-
     googleBot: {
       index: true,
       follow: true,
@@ -120,19 +115,9 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: [
-      {
-        url: "/favicon.ico",
-      },
-    ],
-
+    icon: [{ url: "/favicon.ico" }],
     shortcut: ["/favicon.ico"],
-
-    apple: [
-      {
-        url: "/apple-touch-icon.png",
-      },
-    ],
+    apple: [{ url: "/apple-touch-icon.png" }],
   },
 };
 
@@ -148,7 +133,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen overflow-x-hidden bg-[#070B18] text-white antialiased">
-
         {/* Structured Data */}
         <script
           type="application/ld+json"
@@ -170,30 +154,16 @@ export default function RootLayout({
           }}
         />
 
-        {/* GLOBAL BACKGROUND GRID */}
+        {/* Global Background */}
         <div className="fixed inset-0 z-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:60px_60px] opacity-20" />
 
-        {/* LEFT GLOW */}
         <div className="fixed -left-40 top-0 h-[500px] w-[500px] rounded-full bg-blue-600/20 blur-[140px]" />
 
-        {/* RIGHT GLOW */}
         <div className="fixed -right-40 bottom-0 h-[500px] w-[500px] rounded-full bg-cyan-500/10 blur-[160px]" />
 
-        {/* APP SHELL */}
         <div className="relative z-10 flex min-h-screen flex-col">
-
-          <Header />
-
-          <main className="flex-1">
-            {children}
-          </main>
-
-          <Footer />
-
+          <AppShell>{children}</AppShell>
         </div>
-
-        <WhatsappFloat />
-
       </body>
     </html>
   );
