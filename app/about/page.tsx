@@ -6,6 +6,7 @@ import MissionVision from "@/components/about/MissionVision";
 import LeadershipTeam from "@/components/about/LeadershipTeam";
 import CapabilityGrid from "@/components/about/CapabilityGrid";
 import IndustriesGrid from "@/components/about/IndustriesGrid";
+import Certifications from "@/components/about/Certifications";
 import WhyRakshak from "@/components/about/WhyRakshak";
 import AboutCTA from "@/components/about/AboutCTA";
 
@@ -140,6 +141,8 @@ export default function AboutPage() {
         <CapabilityGrid />
 
         <IndustriesGrid />
+
+        <Certifications />
 
         <WhyRakshak />
 

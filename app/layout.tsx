@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
   title: {
     default:
-      "Rakshak SecureTech | AI Powered Security & Surveillance Solutions",
+      "RakshakSecureTech | AI Powered Security & Surveillance Solutions",
     template: "%s | Rakshak SecureTech",
   },
 
@@ -52,12 +52,12 @@ export const metadata: Metadata = {
 
   authors: [
     {
-      name: "Rakshak SecureTech",
+      name: "RakshakSecureTech",
       url: "https://rakshaksecuretech.com",
     },
   ],
 
-  creator: "Rakshak SecureTech",
+  creator: "RakshakSecureTech",
   publisher: "Rakshak SecureTech",
   category: "Technology",
 
@@ -79,14 +79,14 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Rakshak SecureTech | AI Powered Security & Surveillance Solutions",
+      "RakshakSecureTech | AI Powered Security & Surveillance Solutions",
 
     description:
       "Enterprise AI-powered surveillance, facial recognition, command centers, access control and intelligent security solutions.",
 
     url: "https://rakshaksecuretech.com",
 
-    siteName: "Rakshak SecureTech",
+    siteName: "RakshakSecureTech",
 
     locale: "en_US",
 
@@ -97,7 +97,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Rakshak SecureTech",
+        alt: "RakshakSecureTech",
       },
     ],
   },
@@ -106,7 +106,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Rakshak SecureTech | AI Powered Security & Surveillance Solutions",
+      "RakshakSecureTech | AI Powered Security & Surveillance Solutions",
 
     description:
       "Enterprise AI-powered surveillance, facial recognition, command centers and intelligent security systems.",
@@ -140,7 +140,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "Rakshak SecureTech",
+              name: "RakshakSecureTech",
               url: "https://rakshaksecuretech.com",
               logo: "https://rakshaksecuretech.com/logo.png",
               description:
